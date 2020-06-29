@@ -1,6 +1,8 @@
 package com.cola.algorithm;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 //todo：尽量再做5~6题
 public class GreedyAlgorithm {
@@ -78,7 +80,7 @@ public class GreedyAlgorithm {
         int curState = 0;//0：正北，1：正西，2：正南，3：正东
         int max = 0;
         Set<String> set = new HashSet<>();
-        for(int i =  0 ;i < obstacles.length; i++){
+        for (int i = 0; i < obstacles.length; i++) {
             set.add(obstacles[i][0] + "," + obstacles[i][1]);
         }
         for (int i = 0; i < commands.length; i++) {
@@ -88,43 +90,43 @@ public class GreedyAlgorithm {
             } else if (command == -1) {
                 curState = switchRight(curState);
             } else {
-                for(int j = 0; j <command; j++){
+                for (int j = 0; j < command; j++) {
                     boolean nextLoop = false;
                     switch (curState) {
                         case 0: //正北
-                            if (set.contains(curX+","+ (curY + 1))){
+                            if (set.contains(curX + "," + (curY + 1))) {
                                 nextLoop = true;
                                 break;
                             }
                             curY = curY + 1;
                             break;
                         case 1: //正西
-                            if (set.contains((curX -1)+","+ curY)) {
+                            if (set.contains((curX - 1) + "," + curY)) {
                                 nextLoop = true;
                                 break;
                             }
                             curX = curX - 1;
                             break;
                         case 2:  //正南
-                            if (set.contains(curX+","+ (curY - 1))) {
+                            if (set.contains(curX + "," + (curY - 1))) {
                                 nextLoop = true;
                                 break;
                             }
                             curY = curY - 1;
                             break;
                         case 3: //正东
-                            if (set.contains((curX -1)+","+ curY)) {
+                            if (set.contains((curX - 1) + "," + curY)) {
                                 nextLoop = true;
                                 break;
                             }
                             curX = curX + 1;
                             break;
                     }
-                    if(nextLoop){
+                    if (nextLoop) {
                         break;
                     }
                 }
-                max = Math.max(max, curX *curX + curY * curY);
+                max = Math.max(max, curX * curX + curY * curY);
             }
         }
         return max;
@@ -161,7 +163,22 @@ public class GreedyAlgorithm {
     }
 
 
-    //单词接龙
+    //二分查找有序数组
+    public static int findDisOrderPos(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left  + 1< right) {
+            int mid = left + (right - left) / 2;
+            //左边顺序
+            if (nums[left] < nums[mid] && nums[mid] >= nums[right]) {
+                left = mid;
+            } else if (nums[left] > nums[mid] && nums[mid] <= nums[right]) {
+                right = mid;
+            }
+        }
+        return left;
+    }
 
 
     public static void main(String[] args) {
@@ -182,6 +199,10 @@ public class GreedyAlgorithm {
 //        int[][] ob = new int[][]{{-3,2},{-2,1},{0,1},{-2,4},{-1,0},{-2,-3},{0,-3},{4,4},{-3,3},{2,2}};
 //        System.out.println("result" + robotSim(steps, ob));
 
+        //二分查找半有序数组
+//        int[] halfOrderNums = new int[]{4, 5, 6, 7, 0, 1, 2};
+        int[] halfOrderNums = new int[]{7,6,5,4,3};
+        System.out.println("二分查找半有序数组" + findDisOrderPos(halfOrderNums));
     }
 
     //简单：
