@@ -1,5 +1,8 @@
 package com.cola.algorithm;
 
+/**
+ * 前缀树实现
+ * */
 class Trie {
 
     //定义Trie树节点
@@ -10,6 +13,8 @@ class Trie {
         private TrieNode[] trieNodes;
 
         private boolean isEnd = false;
+
+        public String word = null;
 
         public TrieNode() {
             trieNodes = new TrieNode[count];
@@ -42,7 +47,7 @@ class Trie {
     }
 
     //构建根节点
-    private TrieNode root;
+    public TrieNode root;
 
     /**
      * Initialize your data structure here.
@@ -67,6 +72,7 @@ class Trie {
             node = node.getTrieNodeByIndex(position);
         }
         node.setEnd(true);
+        node.word = word;
     }
 
     /**
