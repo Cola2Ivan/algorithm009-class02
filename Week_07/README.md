@@ -79,4 +79,75 @@ class UnionFind{
 
 ####剪枝
 个人理解：剪枝是对之前搜索的一种优化思路。可以说这几主要复习BFS，  
-DFS,回溯，递归等的过程和特点。
+DFS,回溯，递归等的过程和特点。  
+
+####双向BFS
+个人理解：双向BFS，解决查找图相遇问题，从起始结点和终止结点同时搜索  
+减少了一半的时间，
+```java
+//代码模板
+class DBFS{
+    
+}
+```
+####启发式搜索（A*搜索）
+个人理解：BFS，DFS搜索的优化，每次搜索是引入PriorityQueue（优先队列）  
+根据具体问题，设置优先队列的条件 
+```java
+//代码模板，以二叉树为例，可以为图
+class PriorityQueueBFS{
+    private PriorityQueue<TreeNode> queue;
+    
+    public void aStarSearch(TreeNode node){
+        //这里实现comparator来进行优先级的确定
+        queue = new PriorityQueue<>(new Comparator<TreeNode>(){
+            public int compare(TreeNode o1, TreeNode o2){
+                return o1.val - o2.val;
+            }   
+
+        }); 
+        queue.offer(node);
+        while(queue.size() != 0){
+            TreeNode node = queue.poll();
+            //处理数据
+            
+            //加入相关节点
+            queue.offer(node.left);
+            queue.offer(node.right);
+        }
+
+    }   
+
+}
+```
+启发式函数：h(n),它用来评价哪些结点是最有希望的是一个我们  
+要找的结点，H(n)会返回一个非负实数，也可以认为是从结点n的  
+目标结点路径的估计成本。  
+启发式函数是一种告知搜素方向的方法。它提供了一种明智的方法  
+来猜测那个邻居节点会导向一个目标。  
+
+解题技巧：对于部分移位或者搜索方向的问题，可以抽象移位或者  
+方向数组  
+
+####AVL树和红黑树的实现和特性
+AVL树：AVL树出现的原因就是树的搜索时间复杂度由树的高度来决定    
+平衡因子{-1，0,1}  
+左旋：  
+右旋：  
+左右旋：  
+右左旋：  
+不足：结点需要存储额外的信息，并且调整次数频繁  
+
+红黑树：一种近似平衡的二叉搜索树，它能够确保任何一个结点的左右  
+子树的高度差小于两倍。  
+性质：  
+1、每个结点要么红，要么黑  
+2、根结点为黑  
+3、每个叶子结点（空结点）是黑色  
+4、不能有相邻的两个红色结点  
+5、从任一结点到其每个叶子的所有路径都包含相同数目的黑色结点。   
+
+比较：
+1、AVL需要更多的内存存储结点信息，红黑树只需要记录红黑属性。  
+2、AVL查询更快，红黑树插入和删除更快。  
+3、红黑树多用于库实现中，AVL多用于数据库中。  
