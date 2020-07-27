@@ -1,4 +1,4 @@
-package com.cola.algorithm;
+package com.cola.algorithm06;
 
 public class DPMinPathSum {
 
